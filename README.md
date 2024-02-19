@@ -3,8 +3,17 @@
     -Create-react-app
     -configure Tailwind Css
     -Header
+    -routing
     -Login Form
     -SignUp Form
+    -Form validation
+    -UseRef
+    -Eirebase Setup
+    -Deployment our app to Production
+    -Create Signup User Account
+    -Implemented Sign User API
+    -Created Redux Store with UserSlice
+    -Update Profile
 
 # Features
 
