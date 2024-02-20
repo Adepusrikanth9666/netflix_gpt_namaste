@@ -27,6 +27,14 @@
     -udate store with the trailer video data
     -Embeded the Youtube video and make it autoplay and mute
     -Tailwind Classes to make main container look awesome
+    -Build Secondary Component
+    -Build Movie List
+    -Build Movie card
+    -TMDB Image CDN Url
+    -Made the Browser page amazing with tailwind CSS
+    -usePopularMovie Custom hook
+    -useTopRatedMovie Custom hook
+    -useUpcomingMovie Custom hook
 
 # Features
 
