@@ -7,9 +7,9 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { MOVIE_BG, USER_LOGO } from "../utils/constants";
 
 const Login = () => {
   const [isSignIn, setIssignIn] = useState(true);
@@ -17,11 +17,9 @@ const Login = () => {
   const password = useRef(null);
   const fullName = useRef(null);
   const [erroeMessage, setErrorMessage] = useState();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const toggleSignInForm = () => {
     setIssignIn(!isSignIn);
-    console.log("Singin/login Status");
   };
 
   const handleButtonClick = () => {
@@ -51,8 +49,7 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: fullName?.current?.value,
-            photoURL:
-              "https://lh3.googleusercontent.com/a/ACg8ocIKJQZozYUiLfsU6ZQRDK0zkH54JWQqOJFSriGXAycbM1U=s96-c",
+            photoURL: USER_LOGO,
           })
             .then(() => {
               // Profile updated!
@@ -65,8 +62,6 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
-
-              navigate("/browser");
             })
             .catch((error) => {
               // An error occurred
@@ -76,7 +71,7 @@ const Login = () => {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          setErrorMessage(errorCode, "-", erroeMessage);
+          setErrorMessage(errorCode, "-", errorMessage);
           // ..
         });
     } else {
@@ -89,7 +84,6 @@ const Login = () => {
         .then((userCredential) => {
           const user = userCredential.user;
 
-          navigate("/browser");
           // ...
         })
         .catch((error) => {
@@ -103,10 +97,7 @@ const Login = () => {
     <div>
       <Header />
       <div className="absolute">
-        <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/c0b69670-89a3-48ca-877f-45ba7a60c16f/2642e08e-4202-490e-8e93-aff04881ee8a/IN-en-20240212-popsignuptwoweeks-perspective_alpha_website_small.jpg"
-          alt="bg_movies"
-        />
+        <img src={MOVIE_BG} alt="bg_movies" />
       </div>
       <form
         onSubmit={(e) => e.preventDefault()}
