@@ -27,7 +27,9 @@ const GPTSearchBar = () => {
     // Make API call to openAI and get movie results
     const gptQuery =
       "Act as a only" +
+      " " +
       selectedLangauge +
+      " " +
       "Movie Recommendation system and suggest some movies for the query : " +
       searchText.current.value +
       ". only give me names of 5 movies, comma seperated like the example result given ahead. Example Result: Gadar, Sholay, Don, Golmaal, Koi Mil Gaya";
@@ -49,9 +51,9 @@ const GPTSearchBar = () => {
     );
   };
   return (
-    <div className="py-[10%] flex justify-center">
+    <div className="pt-[35%] md:pt-[10%] flex justify-center">
       <form
-        className=" w-1/2 bg-black flex justify-between rounded-xl "
+        className="w-full md:w-1/2 bg-black flex justify-between rounded-xl "
         onSubmit={(e) => e.preventDefault()}
       >
         <input

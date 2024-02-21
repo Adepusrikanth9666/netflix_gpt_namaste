@@ -39,6 +39,15 @@
     -GPT Search Page
     -Gpt Search Bar
     -Multi langauge feature*
+    -Get OpenAI API Key
+    -GPT Search APicall
+    -fetched gptmoviesuggestions from TMDb
+    -Memorization
+    -created gptSlice added data
+    -Reused movie list component to make movie suggestion container
+    -Added .env file
+    -add .env file to gitignore
+    -finally made our app responsive
 
 # Features
 

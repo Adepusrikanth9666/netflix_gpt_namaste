@@ -62,10 +62,10 @@ const Header = () => {
     });
   }, []);
   return (
-    <div className="absolute px-8 py-2 bg-gradient-to-b from-black z-10 flex w-full justify-between">
-      <img className="w-44 " src={NETFLIX_LOGO} alt="logo" />
+    <div className="absolute px-8 py-2 bg-gradient-to-b from-black z-10 flex w-full md:justify-between flex-col md:flex-row">
+      <img className="w-44 mx-auto md:mx-0 " src={NETFLIX_LOGO} alt="logo" />
       {user && (
-        <div className="flex align-middle items-center gap-3">
+        <div className="flex align-middle items-center gap-3 justify-between">
           {showGPTSearch && (
             <select
               className="p-2 m-2 bg-gray-900 text-white rounded-lg"
@@ -84,7 +84,11 @@ const Header = () => {
           >
             {!showGPTSearch ? "GPT Search" : "Home"}
           </button>
-          <img className="h-10 w-10" src={user.photoURL} alt="user_icon" />
+          <img
+            className="h-10 w-10 hidden md:inline-block"
+            src={user.photoURL}
+            alt="user_icon"
+          />
           <button onClick={handleSignOut} className=" font-bold text-white">
             (Sign out)
           </button>
