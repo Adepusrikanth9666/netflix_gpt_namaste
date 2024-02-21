@@ -32,6 +32,7 @@ const Header = () => {
 
   const handleLangaugeChange = (e) => {
     dispatch(changeLangauge(e.target.value));
+    console.log("e.target.value", e.target.value);
   };
 
   useEffect(() => {
