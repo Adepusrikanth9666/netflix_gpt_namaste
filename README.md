@@ -35,6 +35,10 @@
     -usePopularMovie Custom hook
     -useTopRatedMovie Custom hook
     -useUpcomingMovie Custom hook
+    -GPT Search Feature
+    -GPT Search Page
+    -Gpt Search Bar
+    -Multi langauge feature*
 
 # Features
 

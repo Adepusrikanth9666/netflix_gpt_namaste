@@ -14,3 +14,22 @@ export const apiOptions = {
   },
 };
 export const IMGAGE_CDN = "https://image.tmdb.org/t/p/w400";
+
+export const SUPPORTED_LAGAUGES = [
+  {
+    id: "en",
+    name: "English",
+  },
+  {
+    id: "telugu",
+    name: "Telugu",
+  },
+  {
+    id: "hindi",
+    name: "Hindi",
+  },
+  {
+    id: "spanish",
+    name: "Spanish",
+  },
+];
