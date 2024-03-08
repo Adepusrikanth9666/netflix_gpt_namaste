@@ -4,13 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 import openAI from "../utils/openAI";
 import Loading from "./Loading";
 import { apiOptions } from "../utils/constants";
-import { addGPTMovieResult } from "../utils/gptSlice";
+import {
+  addGPTMovieResult,
+  gptLoading,
+  gptMovieDataError,
+} from "../utils/gptSlice";
+import ErrorPage from "./ErrorPage";
 
 const GPTSearchBar = () => {
   const dispatch = useDispatch();
   const searchText = useRef(null);
   const selectedLangauge = useSelector((store) => store.config.lang);
-
+  const isLoading = useSelector((store) => store.gpt.isLoadingGpt);
+  console.log(isLoading, "isLoading");
   // search movie in TMDB
   const searchMovieTmdb = async (movieName) => {
     // api call
@@ -25,30 +31,36 @@ const GPTSearchBar = () => {
 
   const handleGPTSearchClick = async () => {
     // Make API call to openAI and get movie results
-    const gptQuery =
-      "Act as a only" +
-      " " +
-      selectedLangauge +
-      " " +
-      "Movie Recommendation system and suggest some movies for the query : " +
-      searchText.current.value +
-      ". only give me names of 5 movies, comma seperated like the example result given ahead. Example Result: Gadar, Sholay, Don, Golmaal, Koi Mil Gaya";
-    const gptResults = await openAI.chat.completions.create({
-      messages: [{ role: "user", content: gptQuery }],
-      model: "gpt-3.5-turbo",
-    });
 
-    if (!gptResults.choices) {
-      return <Loading />;
+    try {
+      dispatch(gptLoading(true));
+
+      const gptQuery =
+        "Act as a only" +
+        " " +
+        selectedLangauge +
+        " " +
+        "Movie Recommendation system and suggest some movies for the query : " +
+        searchText.current.value +
+        ". only give me names of 5 movies, comma seperated like the example result given ahead. Example Result: Gadar, Sholay, Don, Golmaal, Koi Mil Gaya";
+      const gptResults = await openAI.chat.completions.create({
+        messages: [{ role: "user", content: gptQuery }],
+        model: "gpt-3.5-turbo",
+      });
+
+      const gptMovies = gptResults.choices?.[0]?.message?.content.split(",");
+      console.log("completion", gptMovies);
+
+      const promiseArray = gptMovies.map((movie) => searchMovieTmdb(movie));
+      const tmdbResults = await Promise.all(promiseArray);
+      dispatch(
+        addGPTMovieResult({ movienames: gptMovies, movieResults: tmdbResults })
+      );
+      dispatch(gptLoading(false));
+    } catch (error) {
+      dispatch(gptLoading(false));
+      dispatch(gptMovieDataError(true));
     }
-    const gptMovies = gptResults.choices?.[0]?.message?.content.split(",");
-    console.log("completion", gptMovies);
-
-    const promiseArray = gptMovies.map((movie) => searchMovieTmdb(movie));
-    const tmdbResults = await Promise.all(promiseArray);
-    dispatch(
-      addGPTMovieResult({ movienames: gptMovies, movieResults: tmdbResults })
-    );
   };
   return (
     <div className="pt-[35%] md:pt-[10%] flex justify-center">

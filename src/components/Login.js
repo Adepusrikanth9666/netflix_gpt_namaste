@@ -10,6 +10,7 @@ import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { MOVIE_BG, USER_LOGO } from "../utils/constants";
+import Loading from "./Loading";
 
 const Login = () => {
   const [isSignIn, setIssignIn] = useState(true);
@@ -20,10 +21,17 @@ const Login = () => {
   const dispatch = useDispatch();
   const toggleSignInForm = () => {
     setIssignIn(!isSignIn);
+    setErrorMessage("");
+    console.log(isSignIn);
   };
 
   const handleButtonClick = () => {
     // validathe the form data
+    if (!email.current.value || !password.current.value) {
+      setErrorMessage("Please Fill all the details");
+      return;
+    }
+
     const message = checkValidData(
       isSignIn,
       fullName?.current?.value,
@@ -96,12 +104,17 @@ const Login = () => {
   return (
     <div>
       <Header />
+
       <div className="absolute">
-        <img className="h-screen object-cover" src={MOVIE_BG} alt="bg_movies" />
+        <img
+          className="h-[800px] sm:h-[800px] lg:h-[100%]"
+          src={MOVIE_BG}
+          alt="bg_movies"
+        />
       </div>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="absolute w-11/12 md:w-3/12 p-12 my-24 mx-auto right-0 left-0 bg-black text-white bg-opacity-80 rounded-xl"
+        className="absolute w-11/12 md:w-4/12 p-12  my-24 mx-auto right-0 left-0 bg-black text-white bg-opacity-80 rounded-xl"
       >
         <h1 className="font-bold text-3xl py-4">
           {isSignIn ? "SingIn" : "SignUp"}

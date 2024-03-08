@@ -6,6 +6,8 @@ const gptSlice = createSlice({
     showGPTSearch: false,
     movienames: null,
     movieResults: null,
+    isGptMovieDataError: false,
+    isLoadingGpt: false,
   },
   reducers: {
     toggoleGPTSearchView: (state, action) => {
@@ -16,9 +18,20 @@ const gptSlice = createSlice({
       state.movieResults = movieResults;
       state.movienames = movienames;
     },
+    gptMovieDataError: (state, action) => {
+      state.isGptMovieDataError = action.payload;
+    },
+    gptLoading: (state, action) => {
+      state.isLoadingGpt = action.payload;
+    },
   },
 });
 
-export const { toggoleGPTSearchView, addGPTMovieResult } = gptSlice.actions;
+export const {
+  toggoleGPTSearchView,
+  addGPTMovieResult,
+  gptMovieDataError,
+  gptLoading,
+} = gptSlice.actions;
 
 export default gptSlice.reducer;
