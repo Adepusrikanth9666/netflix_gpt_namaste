@@ -35,4 +35,4 @@ export const SUPPORTED_LAGAUGES = [
   },
 ];
 
-export const OPENAI_KEY = "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";
+export const OPENAI_KEY = "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";
