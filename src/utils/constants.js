@@ -33,4 +33,4 @@ export const SUPPORTED_LAGAUGES = [
   },
 ];
 
-export const OPENAI_KEY = process.env.REACT_APP_OPENAI_KEY;
+export const OPENAI_KEY = "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";
