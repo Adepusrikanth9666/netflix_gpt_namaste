@@ -106,7 +106,7 @@ const Login = () => {
 
       <div className="absolute">
         <img
-          className="h-[800px] sm:h-[800px] lg:h-[100%]"
+          className="h-[800px] sm:h-[800px] lg:h-[100%] w-screen"
           src={MOVIE_BG}
           alt="bg_movies"
         />

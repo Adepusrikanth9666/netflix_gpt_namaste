@@ -6,9 +6,9 @@ import GPTMovieSuggestions from "./GPTMovieSuggestions";
 const GPTSearch = () => {
   return (
     <>
-      <div className="fixed -z-10">
+      <div className="fixed md:w-[100%] -z-10">
         <img
-          className="h-screen md:h-auto object-cover"
+          className="h-screen md:h-screen object-cover w-screen"
           src={MOVIE_BG}
           alt="bg_movies"
         />
