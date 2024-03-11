@@ -10,6 +10,7 @@ import {
   gptMovieDataError,
 } from "../utils/gptSlice";
 import { userEnterApiKey } from "../utils/configSlice";
+import appStore from "../utils/appStore";
 
 const GPTSearchBar = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,8 @@ const GPTSearchBar = () => {
 
   const handleGPTSearchClick = async () => {
     // Make API call to openAI and get movie results
+    const state = appStore.getState()?.config?.userApiKey;
+    console.log("state", state);
 
     try {
       if (!searchText.current.value) {
