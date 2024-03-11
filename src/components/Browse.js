@@ -26,14 +26,10 @@ const Browse = () => {
         <GPTSearch />
       ) : (
         <>
-          {!moviesData ? (
-            <Loading />
-          ) : (
-            <>
-              <MainContainer />
-              <Secondarycontainer />
-            </>
-          )}
+          <>
+            <MainContainer />
+            <Secondarycontainer />
+          </>
         </>
       )}
 

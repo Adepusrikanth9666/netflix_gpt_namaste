@@ -116,7 +116,7 @@ const GPTSearchBar = () => {
           className={`p-2 m-2 w-full rounded-lg ${
             isUserApiKey ? "text-white" : "text-black"
           }`}
-          placeholder="Enter your OpenAI Api Key to search Movies"
+          placeholder={lang[selectedLangauge]?.apiSearchPlaceholder}
         />
         <button
           className={`py-2 px-2 m-2 ${
@@ -127,7 +127,9 @@ const GPTSearchBar = () => {
           onClick={handleUserAPIKey}
           disabled={isUserApiKey}
         >
-          {isUserApiKey ? "👍 Sucess" : "Upload"}
+          {isUserApiKey
+            ? "👍 " + lang[selectedLangauge]?.sucessText
+            : lang[selectedLangauge]?.uploadText}
         </button>
         {isUserApiKey && (
           <button
@@ -136,7 +138,7 @@ const GPTSearchBar = () => {
           text-white rounded-lg w-3/12 font-semibold text-xl hover:bg-opacity-70`}
             onClick={() => dispatch(userEnterApiKey(""))}
           >
-            Edit
+            {lang[selectedLangauge]?.edit}
           </button>
         )}
       </form>
