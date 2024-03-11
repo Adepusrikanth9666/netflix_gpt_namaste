@@ -5,7 +5,6 @@ import Loading from "./Loading";
 
 const Secondarycontainer = () => {
   const moviesData = useSelector((store) => store?.movies);
-  console.log("moviesData", moviesData);
   return moviesData ? (
     moviesData.nowPlayingMovies && (
       <div className="bg-black">

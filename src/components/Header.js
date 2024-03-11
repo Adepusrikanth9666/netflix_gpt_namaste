@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 import { NETFLIX_LOGO, SUPPORTED_LAGAUGES } from "../utils/constants";
 import { toggoleGPTSearchView } from "../utils/gptSlice";
-import { changeLangauge } from "../utils/configSlice";
+import { changeLangauge, userEnterApiKey } from "../utils/configSlice";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -19,6 +19,7 @@ const Header = () => {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
+        dispatch(userEnterApiKey(""));
       })
       .catch((error) => {
         // An error happened.
@@ -32,7 +33,6 @@ const Header = () => {
 
   const handleLangaugeChange = (e) => {
     dispatch(changeLangauge(e.target.value));
-    console.log("e.target.value", e.target.value);
   };
 
   useEffect(() => {

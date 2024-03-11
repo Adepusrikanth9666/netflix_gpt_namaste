@@ -22,7 +22,6 @@ const Login = () => {
   const toggleSignInForm = () => {
     setIssignIn(!isSignIn);
     setErrorMessage("");
-    console.log(isSignIn);
   };
 
   const handleButtonClick = () => {

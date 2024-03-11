@@ -9,17 +9,21 @@ import {
   gptLoading,
   gptMovieDataError,
 } from "../utils/gptSlice";
-import ErrorPage from "./ErrorPage";
+import { userEnterApiKey } from "../utils/configSlice";
 
 const GPTSearchBar = () => {
   const dispatch = useDispatch();
   const searchText = useRef(null);
+  const userOpenAIKey = useRef(null);
   const selectedLangauge = useSelector((store) => store.config.lang);
-  const isLoading = useSelector((store) => store.gpt.isLoadingGpt);
-  console.log(isLoading, "isLoading");
+  const isUserApiKey = useSelector((store) =>
+    store.config.userApiKey != "" ? true : false
+  );
+
   // search movie in TMDB
   const searchMovieTmdb = async (movieName) => {
     // api call
+
     const data = await fetch(
       `https://api.themoviedb.org/3/search/movie?query=${movieName}&include_adult=false&language=en-US&page=1`,
       apiOptions
@@ -33,6 +37,15 @@ const GPTSearchBar = () => {
     // Make API call to openAI and get movie results
 
     try {
+      if (!searchText.current.value) {
+        return alert(
+          "Please Enter the text to seach the movies and Upload the OpenAI API"
+        );
+      } else if (!isUserApiKey) {
+        return alert(
+          "Please Upload the OpenAI API by registering in https://platform.openai.com/"
+        );
+      }
       dispatch(gptLoading(true));
 
       const gptQuery =
@@ -49,7 +62,6 @@ const GPTSearchBar = () => {
       });
 
       const gptMovies = gptResults.choices?.[0]?.message?.content.split(",");
-      console.log("completion", gptMovies);
 
       const promiseArray = gptMovies.map((movie) => searchMovieTmdb(movie));
       const tmdbResults = await Promise.all(promiseArray);
@@ -62,8 +74,16 @@ const GPTSearchBar = () => {
       dispatch(gptMovieDataError(true));
     }
   };
+
+  const handleUserAPIKey = () => {
+    if (!userOpenAIKey.current.value) {
+      return <>Please Enter trh valid API Key</>;
+    }
+    dispatch(userEnterApiKey(userOpenAIKey.current.value));
+  };
+
   return (
-    <div className="pt-[35%] md:pt-[10%] flex justify-center">
+    <div className="pt-[35%] md:pt-[10%] flex justify-center items-center flex-col gap-2">
       <form
         className="w-full md:w-1/2 bg-black flex justify-between rounded-xl "
         onSubmit={(e) => e.preventDefault()}
@@ -80,6 +100,42 @@ const GPTSearchBar = () => {
         >
           {lang[selectedLangauge]?.search}
         </button>
+      </form>
+      <form
+        className="w-10/12    md:w-5/12 bg-black flex justify-center  rounded-xl "
+        onSubmit={(e) => e.preventDefault()}
+      >
+        <input
+          type="text"
+          ref={userOpenAIKey}
+          onChange={(e) => (userOpenAIKey.current.value = e.target.value)}
+          disabled={isUserApiKey}
+          className={`p-2 m-2 w-full rounded-lg ${
+            isUserApiKey ? "text-white" : "text-black"
+          }`}
+          placeholder="Enter your OpenAI Api Key to search Movies"
+        />
+        <button
+          className={`py-2 px-2 m-2 ${
+            isUserApiKey ? "bg-green-400" : "bg-red-700"
+          } text-white rounded-lg w-3/12 font-semibold text-xl ${
+            !isUserApiKey ? "hover:bg-opacity-80" : ""
+          }`}
+          onClick={handleUserAPIKey}
+          disabled={isUserApiKey}
+        >
+          {isUserApiKey ? "👍 Sucess" : "Upload"}
+        </button>
+        {isUserApiKey && (
+          <button
+            className={`py-2 px-2 m-2
+           "bg-red-700"
+          text-white rounded-lg w-3/12 font-semibold text-xl hover:bg-opacity-70`}
+            onClick={() => dispatch(userEnterApiKey(""))}
+          >
+            Edit
+          </button>
+        )}
       </form>
     </div>
   );

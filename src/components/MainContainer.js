@@ -9,16 +9,16 @@ const MainContainer = () => {
   const movies = useSelector((store) => store?.movies?.nowPlayingMovies);
   const error = useSelector((store) => store?.movies?.isMovieDataError);
 
-  console.log("movies", movies);
   if (!movies) {
     return;
   }
   const mainMovie = movies[1];
 
   const { id, original_title, overview } = mainMovie;
-  console.log(mainMovie, "Mainmovies");
+
   return mainMovie ? (
     <div className=" pt-[30%] bg-black md:pt-0">
+      <Loading />
       <VideoTitle title={original_title} overview={overview} />
       <VideoBackground movieId={id} />
     </div>

@@ -1,3 +1,4 @@
+import appStore from "./appStore";
 export const USER_LOGO =
   "https://lh3.googleusercontent.com/a/ACg8ocIKJQZozYUiLfsU6ZQRDK0zkH54JWQqOJFSriGXAycbM1U=s96-c";
 export const MOVIE_BG =
@@ -34,5 +35,3 @@ export const SUPPORTED_LAGAUGES = [
     name: "Spanish",
   },
 ];
-
-export const OPENAI_KEY = "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";
