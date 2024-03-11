@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Header from "./Header";
 import useNowPlayingMovies from "../hooks/useNowpalyingMovies";
 import MainContainer from "./MainContainer";
@@ -9,11 +9,10 @@ import usePopularMovies from "../hooks/usePopularMovies";
 import GPTSearch from "./GPTSearch";
 import { useSelector } from "react-redux";
 import Loading from "./Loading";
-import ErrorPage from "./ErrorPage";
 
 const Browse = () => {
   const showGPTSearch = useSelector((store) => store.gpt.showGPTSearch);
-  const error = useSelector((store) => store?.movies?.isMovieDataError);
+  const moviesData = useSelector((store) => store?.movies);
 
   useNowPlayingMovies();
   useTopRatedMovies();
@@ -27,8 +26,8 @@ const Browse = () => {
         <GPTSearch />
       ) : (
         <>
-          {error ? (
-            <ErrorPage />
+          {!moviesData ? (
+            <Loading />
           ) : (
             <>
               <MainContainer />
